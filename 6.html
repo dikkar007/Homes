@@ -1,0 +1,34 @@
+<html>
+
+<body>
+
+    <div id="mismatched"></div>
+
+    <script>
+
+        function invoke() {
+            let origItems = ["rice", "sugar", "wheat"," cheese"];
+            let origPrices = [16.89, 56.92, 20.89, 345.99];
+            let items = ["rice", "cheese"];
+            let prices = [18.99, 400.89];
+            document.getElementById("mismatched").innerHTML = getNumberOfMismatchedSales(origItems, origPrices, items, prices);
+        }
+        
+        const getNumberOfMismatchedSales = (origItems, origPrices, items, prices) => {
+            origItems = origItems.map( item => item.trim());
+           
+            let mismatched = 0;
+            for (let i = 0; i < items.length; i++) {
+                let index = origItems.indexOf(items[i]);
+                if (origPrices[index] != prices[i])
+                    mismatched++;
+            }
+            return mismatched;
+        }
+
+        invoke();
+    </script>
+
+</body>
+
+</html>
