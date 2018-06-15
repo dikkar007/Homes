@@ -82,7 +82,7 @@
                 result.push(value);
             }
             totalTime = performance.now() - startTime;
-            ele.innerHTML = ele.innerHTML + "<br><b>Set Cache : </b>" + (totalTime) + " milliseconds";
+            ele.innerHTML = ele.innerHTML + "<br><b>Set Cache : </b>" + (totalTime) + " milliseconds" + (display ? " <b>Result :</b>" + JSON.stringify(result) : "");
 
             ele.innerHTML = ele.innerHTML + "<hr>";
 
