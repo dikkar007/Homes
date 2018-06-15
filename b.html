@@ -1,0 +1,108 @@
+
+
+a<html>
+<body>
+ 
+     <b>
+        <div>Set constructor to filter is the shortest and the best solution.</div>
+        <div>My custom Set cache with the Set.has() method is fastest on large dataset.</div>
+    </b>
+  <hr>
+    <div id="unique"></div>
+
+    <script>
+
+        const uniqueified = (source, display) => {
+            // loops
+            let result = [];
+            let startTime = performance.now();
+            for (let index = 0; index < source.length; index++) {
+                let el = source[index];
+                if (result.indexOf(el) === -1) result.push(el);
+            }
+            let totalTime = performance.now() - startTime;
+            let ele = document.getElementById("unique");
+            ele.innerHTML = ele.innerHTML + "<b> Source Length : </b>" + source.length;
+            if (display)
+                ele.innerHTML = ele.innerHTML + "<br><b> Source : </b>" + JSON.stringify(source);
+            ele.innerHTML = ele.innerHTML + "<br><b>Loops-indexOf : </b> " + (totalTime) + " milliseconds" + (display ? " <b>Result :</b>" + JSON.stringify(result) : "");
+
+            //loops with includes
+            startTime = performance.now();
+            for (let index = 0; index < source.length; index++) {
+                let el = source[index];
+                if (!result.includes(el)) result.push(el);
+            }
+            totalTime = performance.now() - startTime;
+            ele.innerHTML = ele.innerHTML + "<br><b>Loops-includes : </b>" + (totalTime) + " milliseconds" + (display ? " <b>Result :</b>" + JSON.stringify(result) : "");
+
+            //forEach
+            startTime = performance.now();
+            source.forEach((el) => {
+                if (!result.includes(el)) result.push(el);
+            });
+            totalTime = performance.now() - startTime;
+            ele.innerHTML = ele.innerHTML + "<br><b>ForEach : </b>" + (totalTime) + " milliseconds" + (display ? " <b>Result :</b>" + JSON.stringify(result) : "");
+
+            //reduce
+            startTime = performance.now();
+            result = source.reduce((p, c) => {
+                if (!p.includes(c)) p.push(c);
+                return p;
+            }, []);
+            totalTime = performance.now() - startTime;
+            ele.innerHTML = ele.innerHTML + "<br><b>Reduce : </b>" + (totalTime) + " milliseconds" + (display ? " <b>Result :</b>" + JSON.stringify(result) : "");
+
+            //filter
+            startTime = performance.now();
+            result = source.filter(function (elem, index, self) {
+                return index == self.indexOf(elem);
+            });
+            totalTime = performance.now() - startTime;
+            ele.innerHTML = ele.innerHTML + "<br><b>Filter : </b>" + (totalTime) + " milliseconds" + (display ? " <b>Result :</b>" + JSON.stringify(result) : "");
+
+            //set
+            startTime = performance.now();
+            result = [...new Set(source)];
+            totalTime = performance.now() - startTime;
+            ele.innerHTML = ele.innerHTML + "<br><b>Set : </b>" + (totalTime) + " milliseconds" + (display ? " <b>Result :</b>" + JSON.stringify(result) : "");
+
+            // set cache
+            let seen = new Set();
+            result = [];
+            startTime = performance.now();
+            outer:
+            for (let index = 0; index < source.length; index++) {
+                let value = source[index];
+                if (seen.has(value)) continue outer;
+                seen.add(value);
+                result.push(value);
+            }
+            totalTime = performance.now() - startTime;
+            ele.innerHTML = ele.innerHTML + "<br><b>Set Cache : </b>" + (totalTime) + " milliseconds";
+
+            ele.innerHTML = ele.innerHTML + "<hr>";
+
+        }
+
+        let x={user:2};
+        let source1 = [8, 9, 12, 4, 200, 200, 8, {user:1}, {user:3}];
+        let source2 = ['Andy', 'Shri', 'Paula', 'Mike', 'Kevin', 'Andy', 'Roy', 'Gary', '400', x, x];
+        let source3 = ['Andy', 'Roy', 8, 9];
+        uniqueified(source1.concat(source2, source3), true);
+
+        let source = [];
+        for (var i = 0, t = 1000; i < t; i++)
+            source.push(i < 400 ? Math.round(Math.random() * t) : String.fromCharCode(i * t));
+        uniqueified(source, false);
+
+        source = [];
+        for (var i = 0, t = 100000; i < t; i++)
+            source.push(i < 40000 ? Math.round(Math.random() * t) : String.fromCharCode(i * t));
+        uniqueified(source, false);
+
+    </script>
+<br><br><br><br>
+</body>
+
+</html>
