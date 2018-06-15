@@ -1,0 +1,55 @@
+<html>
+
+<body>
+    <script>
+        'use strict'
+        var body = document.body;
+        function display(text) {
+            body.innerHTML = body.innerHTML + '<br>' + JSON.stringify(text);
+        }
+
+        var cat = { name: 'a', color: 'white' };
+        display(cat.name);
+        cat.speak = function () { display('s'); }
+        cat.speak();
+
+        //
+        function Cat1(name, color) {
+            this.name = name;
+            this.color = color;
+        }
+
+        var cat1 = new Cat1('a', 'white');
+        display(cat1);
+        
+        //
+        class Cat2 {
+
+            constructor(name, color) {
+                this.name = name;
+                this.color = color;
+            }
+            speak(){
+                display('cat2')
+            }
+        }
+
+        var cat2= new Cat2('a', 'white');
+        cat2.speak();
+        display(cat2.color);
+        display(cat2['name']);
+
+        // property descriptor , write, enum, config
+
+        Object.defineProperty(cat2, 'name', {writable:false});
+        Object.freeze
+
+        // define propperty
+
+        // prototype attached
+
+        // object doesn't have prototype 
+    </script>
+</body>
+
+</html>
