@@ -26,6 +26,7 @@
             ele.innerHTML = ele.innerHTML + "<br><b>Loops-indexOf : </b> " + (totalTime) + " milliseconds" + (display ? " <b>Result :</b>" + JSON.stringify(result) : "");
 
             //loops with includes
+            result = [];
             startTime = performance.now();
             for (let index = 0; index < source.length; index++) {
                 let el = source[index];
@@ -35,6 +36,7 @@
             ele.innerHTML = ele.innerHTML + "<br><b>Loops-includes : </b>" + (totalTime) + " milliseconds" + (display ? " <b>Result :</b>" + JSON.stringify(result) : "");
 
             //forEach
+            result = [];
             startTime = performance.now();
             source.forEach((el) => {
                 if (!result.includes(el)) result.push(el);
@@ -43,6 +45,7 @@
             ele.innerHTML = ele.innerHTML + "<br><b>ForEach : </b>" + (totalTime) + " milliseconds" + (display ? " <b>Result :</b>" + JSON.stringify(result) : "");
 
             //reduce
+            result = [];
             startTime = performance.now();
             result = source.reduce((p, c) => {
                 if (!p.includes(c)) p.push(c);
@@ -52,6 +55,7 @@
             ele.innerHTML = ele.innerHTML + "<br><b>Reduce : </b>" + (totalTime) + " milliseconds" + (display ? " <b>Result :</b>" + JSON.stringify(result) : "");
 
             //filter
+            result = [];
             startTime = performance.now();
             result = source.filter(function (elem, index, self) {
                 return index == self.indexOf(elem);
@@ -60,6 +64,7 @@
             ele.innerHTML = ele.innerHTML + "<br><b>Filter : </b>" + (totalTime) + " milliseconds" + (display ? " <b>Result :</b>" + JSON.stringify(result) : "");
 
             //set
+            result = [];
             startTime = performance.now();
             result = [...new Set(source)];
             totalTime = performance.now() - startTime;
